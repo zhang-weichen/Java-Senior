@@ -6,4 +6,8 @@ package com.atguigu.java1;
  */
 public class Person extends Creature<String> implements Comparable<String> {
 
+    @Override
+    public int compareTo(String o) {
+        return 0;
+    }
 }
