@@ -51,7 +51,7 @@ class HelloThread extends Thread {
 
             // 主动释放cpu执行权，但不表示一定暂停执行，有可能下次调度的仍是此线程
             if (i % 20 == 0) {
-                yield();
+                Thread.yield();
             }
         }
     }
