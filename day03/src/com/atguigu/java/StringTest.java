@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class StringTest {
 
-    /*
+    /**
      * String:字符串，使用一对""引起来表示。
      * 1. String类被声明为final类型，不可被继承
      * 2. String实现了Serializable接口：表示字符串是支持序列化的。
@@ -21,7 +21,7 @@ public class StringTest {
      *           2. 当对现有的字符串进行连接操作时，也需要重新指定内存区域赋值，不能扩展原有的value数组进行赋值。
      *           3. 当调用String的replace()方法修改指定字符或字符串时，也需要重新指定内存区域赋值，不能修改原有的value数组进行赋值。
      * 5. 通过字面量的方式（区别于new）给一个字符串赋值，此时的字符串值声明在字符串常量池中。
-     * 6. 字符串常量池中是不会存储相同内容的字符串的。
+     * 6. 字符串常量池中不会存储相同内容的字符串。
      */
     @Test
     public void test1() {
@@ -51,13 +51,13 @@ public class StringTest {
         System.out.println(s2 == s4);  // false
     }
 
-    /*
-    String的实例化方式
-    方式一：通过字面量定义的方式
-    方式二：通过new + 构造器的方式
-
-    面试题：String s = new String("abc");方式创建对象，在内存中创建了几个对象？
-            两个：一个是堆空间中new的结构，另一个是char[]对应的常量池中的数据："abc"
+    /**
+     * String的实例化方式
+     * 方式一：通过字面量定义的方式
+     * 方式二：通过new + 构造器的方式
+     *
+     * 面试题：String s = new String("abc");方式创建对象，在内存中创建了几个对象？
+     *      两个：一个是堆空间中new的结构，另一个是char[]对应的常量池中的数据："abc"
      */
     @Test
     public void test2() {
@@ -83,7 +83,37 @@ public class StringTest {
 
         p1.name = "Jerry";
         System.out.println(p2.name);  // Tom
-
     }
 
+    /**
+     * 结论：
+     * 1. 在字符串的字面值之间进行拼接操作，栈空间中的字符串变量会直接指向常量池中的拼接结果字符串常量，且常量池中不会存在内容相同的常量。
+     * 2. 在字符串的拼接操作中，只要其中有一个字符串使用变量名的形式表示，就需要在堆空间中开辟空间存储拼接结果字符串在常量池中的地址。
+     * 3. intern()方法会强制字符串返回其在常量池中的地址。
+     */
+    @Test
+    public void test3() {
+
+        String s1 = "JavaEE";
+        String s2 = "Hadoop";
+        String s3 = "JavaEEHadoop";
+        String s4 = "JavaEE" + "Hadoop";
+        String s5 = s1 + "Hadoop";
+        String s6 = "JavaEE" + s2;
+        String s7 = s1 + s2;
+
+        System.out.println(s3 == s4);  // true
+        System.out.println(s3 == s5);  // false
+        System.out.println(s3 == s6);  // false
+        System.out.println(s3 == s7);  // false
+
+        System.out.println(s5 == s6);  // false
+        System.out.println(s5 == s7);  // false
+
+        System.out.println(s6 == s7);  // false
+
+
+        String s8 = s7.intern();  // 返回常量池中"JavaEEHadoop"在常量池中的地址
+        System.out.println(s3 == s8);  // true
+    }
 }
