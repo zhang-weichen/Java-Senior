@@ -1,5 +1,8 @@
 package com.atguigu.java1;
 
+import org.junit.Test;
+
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,15 +37,27 @@ import java.util.Date;
  *
  * 4. jdk 提供的4种元注解
  *    元注解：对现有的注解进行解释说明的注解
- *      Retention：指定所修饰的Annotation 的生命周期：
+ *      Retention：指定所修饰的 Annotation 的生命周期：
  *         SOURCE
  *         CLASS（默认行为）
- *         RUNTIME 只有声明为RUNTIME生命周期的注解，才能通过反射获取。
- *      Target:用于指定被修饰的 Annotation 能用于修饰哪些程序元素 出现的频率较低*******
- *    Documented:表示所修饰的注解在被javadoc解析时，保留下来。
- *    Inherited:被它修饰的 Annotation 将具有继承性。
+ *         RUNTIME 只有声明为 RUNTIME生命周期的注解，才能通过反射获取。
  *
- * 5.通过反射获取注解信息 ---到反射内容时系统讲解 6. jdk 8 中注解的新特性：可重复注解、类型注解 6.1 可重复注解：① 在MyAnnotation上声明@Repeatable，成员值为MyAnnotations.class ② MyAnnotation的Target和Retention等元注解与MyAnnotations相同。 6.2 类型注解： ElementType.TYPE_PARAMETER 表示该注解能写在类型变量的声明语句中（如：泛型声明）。 ElementType.TYPE_USE 表示该注解能写在使用类型的任何语句中。
+ *      Target:用于指定被修饰的 Annotation 能用于修饰哪些程序元素
+ *
+ *      出现的频率较低的2种元注解：
+ *      Documented：表示所修饰的注解在被javadoc解析时保留下来。默认情况下javadoc是不包括注解信息的。
+ *      Inherited：被它修饰的 Annotation 将具有继承性。
+ *
+ * 5.通过反射获取注解信息 ---到反射内容时系统讲解
+ *
+ * 6. jdk 8 中注解的新特性：可重复注解、类型注解
+ *
+ *   6.1 可重复注解：
+ *     ① 在 MyAnnotation上声明 @Repeatable，成员值为 MyAnnotations.class
+ *     ② MyAnnotation的 Target和 Retention等元注解与 MyAnnotations相同。
+ *
+ *   6.2 类型注解： ElementType.TYPE_PARAMETER 表示该注解能写在类型变量的声明语句中（如：泛型声明）。
+ * ElementType.TYPE_USE 表示该注解能写在使用类型的任何语句中。
  *
  *
  * @author zhangweichen
@@ -68,6 +83,15 @@ public class AnnotationTest {
         // 抑制编译器对"变量未使用"和"未使用泛型"的警告
         @SuppressWarnings({"unused", "rawtypes"})
         ArrayList list = new ArrayList();
+    }
+
+    @Test
+    public void testGetAnnotation() {
+        Class studentClass = Student.class;
+        Annotation[] annotations = studentClass.getAnnotations();
+        for (int i = 0; i < annotations.length; i++) {
+            System.out.println(annotations[i]);  // @com.atguigu.java1.MyAnnotation(value=world)，说明子类Student继承了父类Person的MyAnnotation注解
+        }
     }
 }
 
@@ -113,6 +137,4 @@ class Student extends Person implements info {
     @Override
     public void show() {
     }
-
-
 }
