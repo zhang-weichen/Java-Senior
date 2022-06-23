@@ -12,7 +12,7 @@ public class SeasonTest1 {
 
         Season1 summer = Season1.SUMMER;
 
-        // toString():
+        // toString()：返回当前枚举类对象的名称
         System.out.println(summer.toString());  // SUMMER
 
         // 定义的枚举类默认继承于java.lang.Enum类
@@ -20,7 +20,7 @@ public class SeasonTest1 {
 
         System.out.println("********************");
 
-        // values():
+        // values()：返回该枚举类中所有对象构成的数组
         Season1[] values = Season1.values();
         for (int i = 0; i < values.length; i++) {
             System.out.println(values[i]);
@@ -34,9 +34,9 @@ public class SeasonTest1 {
             System.out.println(states[i]);
         }
 
-        System.out.println("**********");
+        System.out.println("********************");
 
-        // valueOf(String objName):根据返回枚举类中名为objName的对象
+        // valueOf(String objName)：根据对象名objName返回该枚举类中名为objName的对象
         Season1 winter = Season1.valueOf("WINTER");
         System.out.println(winter);
 
@@ -116,4 +116,5 @@ enum Season1 implements info {
 //    public void show() {
 //        System.out.println("This is a season.");
 //    }
+
 }

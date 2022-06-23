@@ -11,9 +11,9 @@ import java.util.Comparator;
  *          但在开发场景中，对对象进行排序操作是十分常见的，这时就需要比较对象的大小。
  *          如何实现？ 使用两个接口中的任意一个：Comparable 或 Comparator
  *
- * 二、Comparable接口的使用
- *     Comparable接口的方式一旦一定，保证Comparable接口实现类的对象在任何位置都可以比较大小。
- *     Comparator接口属于临时性的比较。
+ * 二、Comparable接口与Comparator接口的使用方式对比：
+ *     Comparable接口的实现类需要实现compareTo()方法，其对象在任何位置都可以比较大小。
+ *     Comparator接口的实现类需要实现compare()方法，一般用于无法修改代码的类或者需要改变默认比较方式的情况（如修改String的比较方式），属于临时性的比较。
  *
  *
  * @author zhangweichen
@@ -94,15 +94,18 @@ public class CompareTest {
     @Test
     public void test4() {
 
-        Goods[] arr = new Goods[5];
+        Goods[] arr = new Goods[6];
 
         arr[0] = new Goods("lenovoMouse",34);
         arr[1] = new Goods("dellMouse",43);
         arr[2] = new Goods("xiaomiMouse",12);
         arr[3] = new Goods("huaweiMouse",65);
         arr[4] = new Goods("microsoftMouse",43);
+        arr[5] = new Goods("huaweiMouse",109);
+
 
         Arrays.sort(arr, new Comparator() {
+            // 指明商品比较大小的方式：按照产品名称升序排列，在名称相同的情况下，按照价格降序排列
             @Override
             public int compare(Object o1, Object o2) {
 
@@ -110,12 +113,19 @@ public class CompareTest {
                     Goods g1 = (Goods) o1;
                     Goods g2 = (Goods) o2;
 
-                    return -Double.compare(g1.getPrice(), g2.getPrice());
+                    if (g1.getName().equals(g2.getName())) {
+
+                        return -Double.compare(g1.getPrice(), g2.getPrice());
+                    } else {
+                        return g1.getName().compareTo(g2.getName());
+                    }
+
                 } else {
                     throw new RuntimeException("传入的数据类型不一致");
                 }
             }
         });
+
         System.out.println(Arrays.toString(arr));
     }
 }
