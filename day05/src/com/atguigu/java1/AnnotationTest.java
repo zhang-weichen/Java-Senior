@@ -56,8 +56,9 @@ import java.util.Date;
  *     ① 在 MyAnnotation上声明 @Repeatable，成员值为 MyAnnotations.class
  *     ② MyAnnotation的 Target和 Retention等元注解与 MyAnnotations相同。
  *
- *   6.2 类型注解： ElementType.TYPE_PARAMETER 表示该注解能写在类型变量的声明语句中（如：泛型声明）。
- * ElementType.TYPE_USE 表示该注解能写在使用类型的任何语句中。
+ *   6.2 类型注解：
+ *      ElementType.TYPE_PARAMETER 表示该注解能写在类型变量的声明语句中（如：泛型声明）。
+ *      ElementType.TYPE_USE 表示该注解能写在使用类型的任何语句中。
  *
  *
  * @author zhangweichen
@@ -95,7 +96,16 @@ public class AnnotationTest {
     }
 }
 
-@MyAnnotation("world")
+// 在JDK 8之前，一种注解只可以修饰一个结构一次
+//@MyAnnotation(value = "hi")
+//@MyAnnotation(value = "world")
+
+// 若想使用一种注解的不同成员修饰某结构，需要构造一个以原注解的数组为成员的新注解类型。
+// 这是JDK 8之前的写法，以原注解的数组为参数
+//@MyAnnotations({@MyAnnotation(value = "hi"), @MyAnnotation("world")})
+
+@MyAnnotation(value = "hi")
+@MyAnnotation(value = "world")
 class Person {
     private String name;
     private int age;
@@ -136,5 +146,15 @@ class Student extends Person implements info {
 
     @Override
     public void show() {
+    }
+}
+
+class Generic<@MyAnnotation T> {
+
+    public void show() throws @MyAnnotation RuntimeException {
+        ArrayList<@MyAnnotation String> list = new ArrayList<>();
+
+        int num = (@MyAnnotation int) 1000000L;
+
     }
 }
