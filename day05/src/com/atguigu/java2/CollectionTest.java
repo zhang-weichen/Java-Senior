@@ -46,16 +46,16 @@ public class CollectionTest {
     public void test1() {
         Collection coll = new ArrayList();
 
-        // add(Object e)：将元素e添加到集合coll中
+        // 1. add(Object e)：将元素e添加到集合coll中
         coll.add("aa");
         coll.add("BB");
         coll.add(123);  // 自动装箱生成包装类对象
         coll.add(new Date());
 
-        // size()：获取集合中的元素数量
+        // 2. size()：获取集合中的元素数量
         System.out.println(coll.size());  // 4
 
-        // addAll(Collection coll1)：将coll1集合中的元素添加到当前集合中
+        // 3. addAll(Collection coll1)：将coll1集合中的元素添加到当前集合中
         Collection coll1 = new ArrayList();
         coll1.add("cc");
         coll1.add(456);
@@ -65,10 +65,10 @@ public class CollectionTest {
         System.out.println(coll.size());  // 6
         System.out.println(coll);
 
-        // clear()：清空集合元素
+        // 4. clear()：清空集合元素
         coll.clear();
 
-        // isEmpty()：判断是否为空集合
+        // 5. isEmpty()：判断是否为空集合
         System.out.println(coll.isEmpty());  // true
     }
 }
