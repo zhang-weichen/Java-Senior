@@ -33,7 +33,7 @@ public class Generic {
         for(Object score : list) {
 
             // 问题二：强转时，可能出现ClassCastException
-            int stuScore = (Integer)score;
+            int stuScore = (Integer) score;
 
             System.out.println(stuScore);
         }
