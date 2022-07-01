@@ -65,8 +65,8 @@ import java.util.List;
  *
  *   5. List接口中的常用方法
  *
- * @author shkstart
- * @create 2019 上午 11:39
+ * @author zhangweichen
+ * @create 2022-06-28 14:20
  */
 public class ListTest {
 

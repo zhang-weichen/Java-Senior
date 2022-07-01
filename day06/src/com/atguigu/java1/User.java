@@ -1,8 +1,8 @@
 package com.atguigu.java1;
 
 /**
- * @author shkstart
- * @create 2019 下午 3:56
+ * @author zhangweichen
+ * @create 2022-07-01 13:44
  */
 public class User implements Comparable{
     private String name;
@@ -53,25 +53,25 @@ public class User implements Comparable{
     }
 
     @Override
-    public int hashCode() { //return name.hashCode() + age;
+    public int hashCode() {  // return name.hashCode() + age;
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + age;
         return result;
     }
 
-    //按照姓名从大到小排列,年龄从小到大排列
+    // 按照姓名降序，年龄升序排列
     @Override
-    public int compareTo(Object o) {
-        if(o instanceof User){
-            User user = (User)o;
+    public int compareTo(Object obj) {
+        if(obj instanceof User){
+            User user = (User) obj;
 //            return -this.name.compareTo(user.name);
             int compare = -this.name.compareTo(user.name);
-            if(compare != 0){
+            if (compare != 0) {
                 return compare;
-            }else{
-                return Integer.compare(this.age,user.age);
+            } else {
+                return Integer.compare(this.age, user.age);
             }
-        }else{
+        } else {
             throw new RuntimeException("输入的类型不匹配");
         }
     }
