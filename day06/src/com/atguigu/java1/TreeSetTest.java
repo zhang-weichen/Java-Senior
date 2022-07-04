@@ -69,7 +69,8 @@ public class TreeSetTest {
             }
         };
 
-        TreeSet set = new TreeSet(comparator);  // 定制排序
+        // 传入Comparator对象进行定制排序
+        TreeSet set = new TreeSet(comparator);
 
         set.add(new User("Jerry", 12));
         set.add(new User("Tom", 8));

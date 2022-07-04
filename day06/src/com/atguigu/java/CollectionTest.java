@@ -11,7 +11,7 @@ import java.util.List;
  * Collection接口中声明的方法测试
  *
  * 结论：
- * 向Collection接口的实现类对象中添加数据obj时，要求obj所属的类重写equals()。
+ * 向 Collection接口的实现类对象中添加数据obj时，要求 obj所属的类重写 equals()。
  *
  * @author zhangweichen
  * @create 2022-06-28 14:48

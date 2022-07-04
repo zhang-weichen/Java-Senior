@@ -7,16 +7,16 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * 集合内部的遍历操作：使用迭代器Iterator接口
+ * 集合内部的遍历操作：使用迭代器 Iterator接口
  * 1. 内部的方法：hasNext() 和 next()
  *
- * 2. 集合对象每次调用iterator()方法都得到一个全新的迭代器对象，默认游标都在集合的第一个元素之前。
+ * 2. 集合对象每次调用 iterator()方法都得到一个全新的迭代器对象，默认游标都在集合的第一个元素之前。
  *
- * 3.内部定义了remove(),可以在遍历的时候，删除集合中的元素。此方法不同于集合直接调用remove()
+ * 3.内部定义了 remove(),可以在遍历的时候，删除集合中的元素。此方法不同于集合直接调用 remove()
  *
  * 注意：
  * 1. Iterator是迭代器，并不属于容器。
- * 2. Iterator中的remove()会作用到原集合上，但与集合中的remove()的不同。
+ * 2. Iterator中的 remove()会作用到原集合上，但与集合中的 remove()的不同。
  *
  * @author zhangweichen
  * @create 2022-06-28 17:05
