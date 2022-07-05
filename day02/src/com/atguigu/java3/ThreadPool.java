@@ -1,8 +1,6 @@
 package com.atguigu.java3;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.*;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -37,7 +35,6 @@ class NumberThread implements Runnable {
 
 class NumberThread1 implements Runnable {
 
-    // 2. 实现run()，将此线程需要执行操作声明在run()中。
     @Override
     public void run() {
         for (int i = 0; i <= 100; i++) {
@@ -55,6 +52,7 @@ class NumberThread2 implements Callable {
         for (int i = 0; i <= 100; i++) {
             if (i % 2 == 0) {
                 System.out.println(Thread.currentThread().getName() + ":" + i);
+                sum += i;
             }
         }
         return sum;
@@ -69,6 +67,7 @@ class NumberThread3 implements Callable {
         for (int i = 0; i <= 100; i++) {
             if (i % 2 != 0) {
                 System.out.println(Thread.currentThread().getName() + ":" + i);
+                sum += i;
             }
         }
         return sum;
@@ -80,6 +79,7 @@ public class ThreadPool {
 
         // 1. 创建指定线程数量的线程池
 //        ExecutorService service = Executors.newFixedThreadPool(10);
+        // ThreadPoolExecutor是 ExecutorService接口的实现类，若要对线程池的属性进行配置，则需转换为实现类的对象
         ThreadPoolExecutor service = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
 
         // 设置线程池属性
@@ -88,13 +88,26 @@ public class ThreadPool {
         service.setKeepAliveTime(100, SECONDS);
 
         // 2. 执行指定的线程操作。
-        // 2.1 调用executor()，需提供Runnable接口实现类的对象
-        service.execute(new NumberThread());
-        service.execute(new NumberThread1());
+        // 2.1 调用executor()，需提供 Runnable接口实现类的对象
+//        service.execute(new NumberThread());
+//        service.execute(new NumberThread1());
 
-        // 2.2 调用submit()，需提供Callable接口实现类的对象
-//        System.out.println((Integer)service.submit(new NumberThread2()));
-        System.out.println(service.submit(new NumberThread3()));
+        // 2.2 调用 submit()，需提供 Callable接口实现类的对象，即 FutureTask对象
+        FutureTask futureTask = new FutureTask(new NumberThread2());
+        FutureTask futureTask1 = new FutureTask(new NumberThread3());
+        service.submit(futureTask);
+        service.submit(futureTask1);
+
+        Object sum = null;
+        Object sum1 = null;
+        try {
+            sum = futureTask.get();
+            sum1 = futureTask1.get();
+            System.out.println("sum = " + sum);
+            System.out.println("sum1 = " + sum1);
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
 
         // 3. 关闭连接池
         service.shutdown();

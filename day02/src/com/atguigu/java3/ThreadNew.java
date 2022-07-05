@@ -36,18 +36,18 @@ class NumThread implements Callable {
 public class ThreadNew {
     public static void main(String[] args) {
 
-        // 3. 创建Callable接口实现类的对象
+        // 3. 创建 Callable接口实现类的对象
         NumThread numThread = new NumThread();
 
-        // 4. 将Callable接口实现类的对象作为参数传入FutureTask构造器中，创建FutureTask对象
+        // 4. 将 Callable接口实现类的对象作为参数传入FutureTask构造器中，创建 FutureTask对象
         FutureTask futureTask = new FutureTask(numThread);
 
-        // 5. 将FutureTask对象作为参数传入Thread构造器中，创建Thread对象并调用start()方法启动线程
+        // 5. 将 FutureTask对象作为参数传入 Thread构造器中，创建 Thread对象并调用 start()方法启动线程
         new Thread(futureTask).start();
 
         try {
-            // 6. 获取Callable中call()的返回值
-            // get()的返回值即作为FutureTask构造器参数的Callable实现类中重写的call()的返回值。
+            // 6. 获取 Callable中 call()的返回值
+            // get()的返回值即作为 FutureTask构造器参数的 Callable实现类中重写的 call()的返回值。
             Object sum = futureTask.get();
             System.out.println("sum = " + sum);
         } catch (InterruptedException e) {

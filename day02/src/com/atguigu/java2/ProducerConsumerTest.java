@@ -54,7 +54,7 @@ class Clerk {
     }
 }
 
-class Producer extends Thread{
+class Producer extends Thread {
     private Clerk clerk;
 
     public Producer(Clerk clerk) {
