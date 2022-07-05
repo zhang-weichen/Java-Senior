@@ -26,6 +26,14 @@ class Clerk {
         if (productCount < 20) {
             productCount++;
             System.out.println(Thread.currentThread().getName() + "开始生产第" + productCount + "个产品");
+
+            notify();
+        } else {
+            try {
+                wait();  // 产品数量已满，等待消费者消费
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -34,6 +42,14 @@ class Clerk {
         if (productCount > 0) {
             System.out.println(Thread.currentThread().getName() + "开始消费第" + productCount + "个产品");
             productCount--;
+
+            notify();
+        } else {
+            try {
+                wait();  // 无产品，等待生产者生产
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
@@ -47,7 +63,15 @@ class Producer extends Thread{
 
     @Override
     public void run() {
-        clerk.produceProduct();
+        System.out.println(getName() + "开始生产...");
+        while (true) {
+            try {
+                sleep(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            clerk.produceProduct();
+        }
     }
 }
 
@@ -60,7 +84,15 @@ class Customer extends Thread{
 
     @Override
     public void run() {
-        clerk.consumeProduct();
+        System.out.println(getName() + "开始消费...");
+        while (true) {
+            try {
+                sleep(20);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            clerk.consumeProduct();
+        }
     }
 }
 
@@ -71,11 +103,14 @@ public class ProducerConsumerTest {
 
         Producer p1 = new Producer(clerk);
         Customer c1 = new Customer(clerk);
+        Customer c2 = new Customer(clerk);
 
         p1.setName("生产者1");
         c1.setName("消费者1");
+        c2.setName("消费者2");
 
         p1.start();
         c1.start();
+        c2.start();
     }
 }
