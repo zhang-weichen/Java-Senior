@@ -2,10 +2,7 @@ package com.atguigu.java;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 一、Map的实现类的结构：
@@ -32,10 +29,10 @@ import java.util.Map;
  * 3. CurrentHashMap与 Hashtable的异同？（暂时不讲）
  *
  * 二、Map结构的理解：
- *    Map中的 key：无序的、不可重复的，使用 Set存储所有的 key --> key所在的类要重写 equals()和 hashCode()（以 HashMap为例）
- *    Map中的 value：无序的、可重复的，使用 Collection存储所有的 value --> value所在的类要重写 equals()
- *    一个键值对 key-value构成了一个 Entry对象。
- *    Map中的 entry：无序的、不可重复的，使用Set存储所有的 entry
+ *     Map中的 key：无序的、不可重复的，使用 Set存储所有的 key --> key所在的类要重写 equals()和 hashCode()（以 HashMap为例）
+ *     Map中的 value：无序的、可重复的，使用 Collection存储所有的 value --> value所在的类要重写 equals()
+ *     一个键值对 key-value构成了一个 Entry对象。
+ *     Map中的 entry：无序的、不可重复的，使用Set存储所有的 entry
  *
  * 三、HashMap的底层实现原理？以JDK 7为例说明：
  *      HashMap map = new HashMap()：
@@ -72,32 +69,34 @@ import java.util.Map;
  *      TREEIFY_THRESHOLD：Bucket中链表长度大于该默认值，转化为红黑树：8
  *      MIN_TREEIFY_CAPACITY：桶中的 Node被树化时最小的 hash表容量：64
  *
- *  四、LinkedHashMap的底层实现原理（了解）
- *      源码中：
- *      static class Entry<K,V> extends HashMap.Node<K,V> {
- *          Entry<K,V> before, after;  // 能够记录添加的元素的先后顺序
- *          Entry(int hash, K key, V value, Node<K,V> next) {
- *              super(hash, key, value, next);
- *          }
- *      }
+ * 四、LinkedHashMap的底层实现原理（了解）
+ *     源码中：
+ *     static class Entry<K,V> extends HashMap.Node<K,V> {
+ *         Entry<K,V> before, after;  // 维护了一对指向前一个和后一个节点的指针，能够记录元素添加的先后顺序
+ *         Entry(int hash, K key, V value, Node<K,V> next) {
+ *             super(hash, key, value, next);
+ *         }
+ *     }
  *
- *   五、Map中定义的方法：
- *      添加、删除、修改操作：
- *          Object put(Object key,Object value)：将指定key-value添加到(或修改)当前map对象中
- *          void putAll(Map m):将m中的所有key-value对存放到当前map中
- *          Object remove(Object key)：移除指定key的key-value对，并返回value
- *          void clear()：清空当前map中的所有数据
- *      元素查询的操作：
- *          Object get(Object key)：获取指定key对应的value
- *          boolean containsKey(Object key)：是否包含指定的key
- *          boolean containsValue(Object value)：是否包含指定的value
- *          int size()：返回map中 key-value对的个数
- *          boolean isEmpty()：判断当前map是否为空
- *  boolean equals(Object obj)：判断当前map和参数对象obj是否相等
- *  元视图操作的方法：
- *  Set keySet()：返回所有key构成的Set集合
- *  Collection values()：返回所有value构成的Collection集合
- *  Set entrySet()：返回所有key-value对构成的Set集合
+ * 五、Map中定义的方法：
+ *     添加、删除、修改操作：
+ *         Object put(Object key, Object value)：将指定 key-value添加到(或修改)当前 map对象中
+ *         void putAll(Map m):将 m中的所有 key-value对存放到当前 map中
+ *         Object remove(Object key)：移除指定 key的 key-value对，并返回 value
+ *         void clear()：清空当前 map中的所有数据
+ *
+ *     元素查询的操作：
+ *         Object get(Object key)：获取指定key对应的 value
+ *         boolean containsKey(Object key)：是否包含指定的 key
+ *         boolean containsValue(Object value)：是否包含指定的 value
+ *         int size()：返回map中 key-value对的个数
+ *         boolean isEmpty()：判断当前 map是否为空
+ *         boolean equals(Object obj)：判断当前 map和参数对象 obj是否相等
+ *
+ *     元视图操作的方法：
+ *         Set keySet()：返回所有 key构成的 Set集合
+ *         Collection values()：返回所有value构成的 Collection集合
+ *         Set entrySet()：返回所有 key-value对构成的 Set集合
  *
  * 常用方法总结：
  *     添加：put(Object key, Object value)
@@ -131,6 +130,140 @@ public class MapTest {
         lMap.put(123, "AA");
         lMap.put(456, "BB");
         lMap.put(789, "CC");
-        System.out.println(lMap);
+        System.out.println(lMap);  // 按元素添加的先后顺序打印
+    }
+
+    /**
+     * 添加、删除、修改操作：
+     * Object put(Object key, Object value)：将指定 key-value添加到(或修改)当前 map对象中
+     * void putAll(Map m)：将m中的所有 key-value对存放到当前 map中
+     * Object remove(Object key)：移除指定 key的 key-value对，并返回 value
+     * void clear()：清空当前 map中的所有数据
+     */
+    @Test
+    public void test3() {
+        Map map = new HashMap();
+
+        // 添加：Object put(Object key, Object value)
+        map.put("AA", 123);
+        map.put("BB", 456);
+
+        // 修改
+        map.put("AA", 789);
+        System.out.println(map);
+
+        Map map1 = new HashMap();
+
+        // 添加：void putAll(Map m)
+        map1.put("CC", 123);
+        map1.put("DD", 123);
+
+        map.putAll(map1);
+        System.out.println(map);
+
+        // 删除：Object remove(Object key)
+        Object value = map.remove("CC");
+        System.out.println(value);
+        System.out.println(map);
+
+        // 清空：void clear()
+        map.clear();  // 与map = null操做不同
+        System.out.println(map.size());
+        System.out.println(map);
+    }
+
+    /**
+     * 元素查询操作：
+     * Object get(Object key)：获取指定 key对应的 value
+     * boolean containsKey(Object key)：是否包含指定的 key
+     * boolean containsValue(Object value)：是否包含指定的 value
+     * int size()：返回map中 key-value对的数量
+     * boolean isEmpty()：判断当前 map是否为空
+     * boolean equals(Object obj)：判断当前 map和参数对象 obj是否相等
+     */
+    @Test
+    public void test4() {
+        Map map = new HashMap();
+        map.put("AA", 123);
+        map.put("BB", 456);
+        map.put("CC", 789);
+
+        // Object get(Object key)
+        System.out.println(map.get("AA"));
+
+        // boolean containsKey(Object key)
+        System.out.println(map.containsKey("BB"));
+
+        // boolean containsValue(Object value)
+        System.out.println(map.containsValue(456));
+
+        // int size()
+        System.out.println(map.size());
+
+        // boolean isEmpty()
+        System.out.println(map.isEmpty());
+
+        // boolean equals(Object obj)
+        Map map1 = new HashMap();
+        map1.put("AA", 123);
+        map1.put("BB", 456);
+        map1.put("CC", 789);
+
+        System.out.println(map.equals(map1));
+    }
+
+    /**
+     * 元视图操作的方法：
+     * Set keySet()：返回所有 key构成的 Set集合
+     * Collection values()：返回所有 value构成的 Collection集合
+     * Set entrySet()：返回所有 key-value对构成的 Set集合
+     */
+    @Test
+    public void test5() {
+        Map map = new HashMap();
+        map.put("AA", 123);
+        map.put("BB", 456);
+        map.put("CC", 789);
+
+        // 遍历key集：Set keySet()
+        Set set = map.keySet();
+        System.out.println(set.getClass());
+
+        Iterator iterator = set.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+
+        System.out.println("*********************");
+
+        // 遍历value集：Collection values()
+        Collection values = map.values();
+        System.out.println(values.getClass());
+
+        for (Object value : map.values()) {
+            System.out.println(value);
+        }
+
+        System.out.println("*********************");
+
+        // 遍历key-value集：Set entrySet()
+        Set entrySet = map.entrySet();
+        System.out.println(entrySet.getClass());
+
+        Iterator iterator1 = entrySet.iterator();
+
+        while (iterator1.hasNext()) {
+            Map.Entry obj = (Map.Entry) iterator1.next();
+            System.out.println(obj.getKey() + " --> " + obj.getValue());
+        }
+
+        Set set1 = map.keySet();
+        Iterator iterator2 = set1.iterator();
+
+        while (iterator2.hasNext()) {
+            Object key = iterator2.next();
+            Object value = map.get(key);
+            System.out.println(key + " --> " + value);
+        }
     }
 }

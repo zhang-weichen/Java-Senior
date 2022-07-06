@@ -3,14 +3,14 @@ package com.atguigu.java1;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * 解决线程安全问题的方式三：Lock锁  -- JDK5.0新增
+ * 解决线程安全问题的方式三：Lock锁 -- JDK 5.0新增
  *
  * 1. 面试题：synchronized 与 Lock的异同？
- *   相同：二者都可以解决线程安全问题
- *   不同：synchronized机制在执行完相应的同步代码以后，自动释放同步监视器
- *          Lock需要手动启动同步（lock()）和手动结束同步（unlock()）
+ *       相同：二者都可以解决线程安全问题
+ *       不同：synchronized机制在执行完相应的同步代码以后，自动释放同步监视器
+ *            Lock需要手动启动同步（lock()）和手动结束同步（unlock()）
  *
- * 2.优先使用顺序：
+ * 2. 使用的优先级（性能角度）：
  *   Lock  同步代码块（已经进入了方法体，分配了相应资源）  同步方法（在方法体之外）
  *
  *
