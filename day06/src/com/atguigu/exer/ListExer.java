@@ -11,6 +11,10 @@ import java.util.List;
  */
 public class ListExer {
 
+    /**
+     * 区分 list中 remove(int index) 和 remove(Object obj)
+     * 当 index和 obj冲突时，优先适用 remove(int index)
+     */
     @Test
     public void testListRemove() {
         List list = new ArrayList();
@@ -18,10 +22,15 @@ public class ListExer {
         list.add(2);
         list.add(3);
 
+        System.out.println(list);  // [1, 2, 3]
+
         updateList(list);
+
+        System.out.println(list);  // [1, 2]
     }
 
     private void updateList(List list) {
-        list.remove(2);
+//        list.remove(new Integer(2));
+        list.remove(2);  //
     }
 }
