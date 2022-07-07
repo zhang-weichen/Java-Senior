@@ -38,24 +38,25 @@ import java.util.List;
  *     JDK 7中的 ArrayList对象的创建类似于单例的饿汉式，而 JDK 8中的 ArrayList对象的创建类似于单例的懒汉式，延迟了数组的创建，节省内存。
  *
  * 3. LinkedList的源码分析：
- *      LinkedList list = new LinkedList(); 内部声明了 Node类型的 first和 last属性，默认值为 null
- *      list.add(123);  // 将123封装到 Node中，创建了 Node对象。
+ *      LinkedList list = new LinkedList();   // 内部声明了 Node类型的 first和 last属性，默认值为 null
+ *      list.add(123);  // 将 123封装到 Node中，创建了 Node对象。
  *
- *      其中，Node定义为：体现了LinkedList的双向链表的说法
+ *      其中，Node定义为：
  *      private static class Node<E> {
-             E item;
-             Node<E> next;
-             Node<E> prev;
-
-             Node(Node<E> prev, E element, Node<E> next) {
-             this.item = element;
-             this.next = next;
-             this.prev = prev;
-             }
-         }
+ *          E item;
+ *          Node<E> next;
+ *          Node<E> prev;
  *
- *   4. Vector的源码分析：JDK7和jdk8中通过 Vector()构造器创建对象时，底层都创建了长度为 10的数组。
- *      在扩容方面，默认扩容为原来的数组长度的 2倍。
+ *          Node(Node<E> prev, E element, Node<E> next) {
+ *          this.item = element;
+ *          this.next = next;
+ *          this.prev = prev;
+ *          }
+ *      }
+ *      体现了 LinkedList的双向链表结构
+ *
+ * 4. Vector的源码分析：JDK 7和 JDK 8中通过 Vector()构造器创建对象时，底层都创建了长度为 10的数组。
+ *    在扩容方面，默认扩容为原来的数组长度的 2倍。
  *
  *
  *  面试题：ArrayList、LinkedList、Vector三者的异同
@@ -63,7 +64,7 @@ import java.util.List;
  *  同：三个类都是实现了 List接口，存储数据的特点相同：存储有序的、可重复的数据
  *  不同：见上
  *
- *   5. List接口中的常用方法
+ * 5. List接口中的常用方法
  *
  * @author zhangweichen
  * @create 2022-06-28 14:20
@@ -71,25 +72,27 @@ import java.util.List;
 public class ListTest {
 
     /**
-     * void add(int index, Object ele)：在 index位置插入 ele元素
-     * boolean addAll(int index, Collection eles)：从 index位置开始将 eles中的所有元素添加进来
+     * void add(int index, Object elem)：在 index位置插入 ele元素
+     * boolean addAll(int index, Collection elems)：从 index位置开始将 elems中的所有元素添加进来
      * Object get(int index)：获取指定 index位置的元素
      * int indexOf(Object obj)：返回 obj在集合中首次出现的位置
      * int lastIndexOf(Object obj)：返回 obj在当前集合中末次出现的位置
      * Object remove(int index)：移除指定 index位置的元素，并返回此元素
-     * Object set(int index, Object ele)：设置指定index位置的元素为ele
+     * Object set(int index, Object elem)：设置指定 index位置的元素为 ele
      * List subList(int fromIndex, int toIndex)：返回从 fromIndex到 toIndex位置的子集合
      *
      * 总结：常用方法
      * 增：add(Object obj)
      * 删：remove(int index) / remove(Object obj)
-     * 改：set(int index, Object ele)
+     * 改：set(int index, Object elem)
      * 查：get(int index)
-     * 插：add(int index, Object ele)
+     * 插：add(int index, Object elem)
      * 长度：size()
-     * 遍历：① Iterator迭代器方式
-     *      ② 增强for循环
-     *      ③ 普通的循环
+     *
+     * 遍历的方法：
+     *  1) Iterator迭代器方式
+     *  2) 增强 for循环
+     *  3) 普通的循环
      */
     @Test
     public void test1(){
@@ -102,17 +105,17 @@ public class ListTest {
 
         System.out.println(list);
 
-        //void add(int index, Object ele):在index位置插入ele元素
+        // void add(int index, Object elem)：在index位置插入elem元素。
         list.add(1,"BB");
         System.out.println(list);
 
-        //boolean addAll(int index, Collection eles):从index位置开始将eles中的所有元素添加进来
+        // boolean addAll(int index, Collection elems)：从index位置开始将elems中的所有元素添加进来。
         List list1 = Arrays.asList(1, 2, 3);
         list.addAll(list1);
-//        list.add(list1);
-        System.out.println(list.size());//9
+//        list.add(list1);  // 将list1作为一个对象存入list。
+        System.out.println(list.size());  // 9
 
-        //Object get(int index):获取指定index位置的元素
+        //Object get(int index)：获取指定index位置的元素。
         System.out.println(list.get(0));
     }
 
@@ -125,24 +128,25 @@ public class ListTest {
         list.add("AA");
         list.add(new Person("Tom",12));
         list.add(456);
-        //int indexOf(Object obj):返回obj在集合中首次出现的位置。如果不存在，返回-1.
+
+        // int indexOf(Object obj)：返回obj在集合中首次出现的位置。如果不存在，返回-1。
         int index = list.indexOf(4567);
         System.out.println(index);
 
-        //int lastIndexOf(Object obj):返回obj在当前集合中末次出现的位置。如果不存在，返回-1.
+        //int lastIndexOf(Object obj)：返回obj在当前集合中末次出现的位置。如果不存在，返回-1。
         System.out.println(list.lastIndexOf(456));
 
-        //Object remove(int index):移除指定index位置的元素，并返回此元素
+        //Object remove(int index)：移除指定index位置的元素，并返回此元素。
         Object obj = list.remove(0);
         System.out.println(obj);
         System.out.println(list);
 
-        //Object set(int index, Object ele):设置指定index位置的元素为ele
-        list.set(1,"CC");
+        //Object set(int index, Object elem)：设置指定index位置的元素为elem。
+        list.set(1, "CC");
         System.out.println(list);
 
-        //List subList(int fromIndex, int toIndex):返回从fromIndex到toIndex位置的左闭右开区间的子集合
-        List subList = list.subList(2, 4);
+        //List subList(int fromIndex, int toIndex)：返回从fromIndex到toIndex位置的左闭右开区间的子集合。
+        List subList = list.subList(1, 3);
         System.out.println(subList);
         System.out.println(list);
     }
