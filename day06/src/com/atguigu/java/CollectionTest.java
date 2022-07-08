@@ -11,7 +11,7 @@ import java.util.List;
  * Collection接口中声明的方法测试
  *
  * 结论：
- * 向 Collection接口的实现类对象中添加数据obj时，要求 obj所属的类重写 equals()。
+ * 向 Collection接口的实现类对象中添加数据 obj时，要求 obj所属的类重写 equals()。
  *
  * @author zhangweichen
  * @create 2022-06-28 14:48
@@ -121,7 +121,7 @@ public class CollectionTest {
 
         // 扩展：数组 --> 集合：调用Arrays类的静态方法asList()
         List list = Arrays.asList(new String[]{"AA", "BB", "CC"});
-        System.out.println(list);
+        System.out.println(list);  // [AA, BB, CC]
 
         List list1 = Arrays.asList(new int[]{123, 456});
         System.out.println(list1);  // [[I@2b05039f]，将基本数据类型的数组识别为了单个元素

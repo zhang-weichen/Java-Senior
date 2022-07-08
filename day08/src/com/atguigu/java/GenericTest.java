@@ -13,10 +13,10 @@ import java.util.*;
  *    总结：
  *    1) 集合接口或集合类在 JDK 5.0时都修改为带泛型的结构。
  *    2) 在实例化集合类时，可以指明具体的泛型类型。
- *    3) 类或接口在引入泛型后，在实例化类或接口时，内部结构（比如：方法、构造器、属性等）使用到类的泛型的位置，都指定为实例化的泛型类型。
+ *    3) 类或接口在引入泛型后，内部结构（比如：方法、构造器、属性等）使用到类的泛型的位置，都指定为实例化的泛型类型。
  *       比如：add(E e) --> 实例化以后：add(Integer e)
  *    4) 注意点：泛型的类型必须是类，不能是基本数据类型。需要用到基本数据类型的位置，使用包装类代替。
- *    5) 如果实例化时，没有指明泛型的类型，默认类型为 java.lang.Object类型。
+ *    5) 如果实例化时没有指明泛型的类型，默认类型为 java.lang.Object类型。
  *
  *
  * @author zhangweichen
@@ -95,9 +95,9 @@ public class GenericTest {
 
         while (iterator.hasNext()) {
             Map.Entry<String, Integer> entry = iterator.next();
-            String name = entry.getKey();
-            int age = entry.getValue();
-            System.out.println("name:" + name + ", age:"+age);
+            String key = entry.getKey();
+            int value = entry.getValue();
+            System.out.println("name:" + key + ", age:" + value);
         }
     }
 }

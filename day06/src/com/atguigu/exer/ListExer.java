@@ -31,6 +31,6 @@ public class ListExer {
 
     private void updateList(List list) {
 //        list.remove(new Integer(2));
-        list.remove(2);  //
+        list.remove(2);
     }
 }

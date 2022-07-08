@@ -12,13 +12,13 @@ import java.util.Set;
  *
  * |----Collection接口：单列集合，用来存储一个一个的对象
  *      |----Set接口：存储无序的、不可重复的数据  --> “集合”
- *           |----HashSet：作为Set接口的主要实现类；线程不安全的；可以存储null值
+ *           |----HashSet：作为 Set接口的主要实现类；线程不安全的；可以存储 null值
  *                |----LinkedHashSet：作为 HashSet的子类；遍历其内部数据时，可以按照添加的顺序遍历
- *                                      对于频繁的遍历操作，LinkedHashSet效率高于 HashSet.
+ *                                    对于频繁的遍历操作，LinkedHashSet效率高于 HashSet.
  *           |----TreeSet：可以按照添加对象的指定属性，进行排序。
  *
  *
- *  1. Set接口中没有额外定义新的方法，使用的都是Collection中声明过的方法。
+ *  1. Set接口中没有额外定义新的方法，使用的都是 Collection中声明过的方法。
  *
  *  2. 要求：向Set（主要指：HashSet、LinkedHashSet）中添加的数据，其所在的类一定要重写 hashCode()和 equals()
  *     要求：重写的 hashCode()和 equals()尽可能保持一致性：相等的对象必须具有相等的散列码
