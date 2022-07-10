@@ -1,4 +1,4 @@
-package com.atguigu.exer1;
+package com.atguigu.exer;
 
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ public class EmployeeTest {
     // 1) 使用自然排序
     @Test
     public void test1() {
-        TreeSet set = new TreeSet();
+        TreeSet<Employee> set = new TreeSet<>();
 
         Employee e1 = new Employee("Adam", 55, new MyDate(1965,5,4));
         Employee e2 = new Employee("Tom", 43, new MyDate(1987,5,4));
@@ -35,43 +35,23 @@ public class EmployeeTest {
         set.add(e4);
         set.add(e5);
 
-        Iterator iterator = set.iterator();
+        Iterator<Employee> iterator = set.iterator();
         while (iterator.hasNext()) {
-            System.out.println(iterator.next());
+            Employee employee = iterator.next();
+            System.out.println(employee);
         }
     }
 
     // 按生日排序
     @Test
     public void test2() {
-        TreeSet set = new TreeSet(new Comparator() {
+        TreeSet<Employee> set = new TreeSet(new Comparator<Employee>() {
+            // 使用泛型后的写法
             @Override
-            public int compare(Object o1, Object o2) {
-                if (o1 instanceof Employee && o2 instanceof Employee) {
-                    Employee e1 = (Employee) o1;
-                    Employee e2 = (Employee) o2;
-
-                    MyDate date1 = e1.getBirthday();
-                    MyDate date2 = e2.getBirthday();
-
-                    // 方式一：
-//                    // 比较年
-//                    int minusYear = date1.getYear() - date2.getYear();
-//                    if(minusYear != 0){
-//                        return minusYear;
-//                    }
-//                    // 比较月
-//                    int minusMonth = date1.getMonth() - date2.getMonth();
-//                    if(minusMonth != 0){
-//                        return minusMonth;
-//                    }
-//                    // 比较日
-//                    return date1.getDay() - date2.getDay();
-
-                    // 方式二：
-                    return date1.compareTo(date2);
-                }
-                throw new RuntimeException("传入的数据类型不匹配！");
+            public int compare(Employee e1, Employee e2) {
+                MyDate date1 = e1.getBirthday();
+                MyDate date2 = e2.getBirthday();
+                return date1.compareTo(date2);
             }
         });
 
@@ -87,8 +67,8 @@ public class EmployeeTest {
         set.add(e4);
         set.add(e5);
 
-        for (Object obj : set) {
-            System.out.println(obj);
+        for (Employee emp : set) {
+            System.out.println(emp);
         }
     }
 }

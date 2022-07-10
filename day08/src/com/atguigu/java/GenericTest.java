@@ -18,6 +18,7 @@ import java.util.*;
  *    4) 注意点：泛型的类型必须是类，不能是基本数据类型。需要用到基本数据类型的位置，使用包装类代替。
  *    5) 如果实例化时没有指明泛型的类型，默认类型为 java.lang.Object类型。
  *
+ * 3. 如何自定义泛型结构：泛型类、泛型接口；泛型方法
  *
  * @author zhangweichen
  * @create 2021-12-08-14:20
@@ -41,15 +42,14 @@ public class GenericTest {
 
         for(Object score : list) {
 
-            // 问题二：强转时，可能出现ClassCastException
+            // 问题二：强转时，可能出现 ClassCastException
             int stuScore = (Integer) score;
 
             System.out.println(stuScore);
         }
-
     }
 
-    // 集合中使用泛型的情况：以ArrayList为例
+    // 集合中使用泛型的情况：以 ArrayList为例
     @Test
     public void test2() {
         ArrayList<Integer> list = new ArrayList<Integer>();
@@ -83,7 +83,9 @@ public class GenericTest {
     // 集合中使用泛型的情况：以HashMap为例
     @Test
     public void test3() {
-        Map<String, Integer> map = new HashMap<String, Integer>();
+//        Map<String, Integer> map = new HashMap<String, Integer>();
+        // JDK 7的新特性：类型推断
+        Map<String, Integer> map = new HashMap<>();
 
         map.put("Tom", 23);
         map.put("Jerry", 12);

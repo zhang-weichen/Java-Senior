@@ -35,32 +35,32 @@ import java.util.*;
  *     Map中的 entry：无序的、不可重复的，使用Set存储所有的 entry
  *
  * 三、HashMap的底层实现原理？以JDK 7为例说明：
- *      HashMap map = new HashMap()：
- *      实例化以后，底层创建了长度是 16的一维数组 Entry[] table。
- *      ...可能已经执行过多次put...
- *      map.put(key1, value1)：
- *      首先，调用 key1所在类的 hashCode()计算 key1哈希值，此哈希值经过某种算法计算以后，得到在 Entry数组中的存放位置。
- *      如果此位置上的数据为空，key1-value1（ Entry对象）添加成功。 --> 情况 1
- *      如果此位置上的数据不为空，即此位置上存在一个或多个数据（以链表形式存在）,比较 key1和已存在的一个或多个数据的哈希值：
- *          如果 key1的哈希值与已经存在的数据的哈希值都不相同，此时 key1-value1添加成功。--> 情况 2
- *          如果 key1的哈希值和已存在的某数据（ key2-value2）的哈希值相同：调用 key1所在类的 equals(key2)方法，比较：
- *              如果 equals()返回 false：此时 key1-value1添加成功。--> 情况3
- *              如果 equals()返回 true：使用 value1替换 value2，即 put()方法具有修改功能。
+ *     HashMap map = new HashMap()：
+ *     实例化以后，底层创建了长度是 16的一维数组 Entry[] table。
+ *     ...可能已经执行过多次put...
+ *     map.put(key1, value1)：
+ *     首先，调用 key1所在类的 hashCode()计算 key1哈希值，此哈希值经过某种算法计算以后，得到在 Entry数组中的存放位置。
+ *     如果此位置上的数据为空，key1-value1（ Entry对象）添加成功。 --> 情况 1
+ *     如果此位置上的数据不为空，即此位置上存在一个或多个数据（以链表形式存在）,比较 key1和已存在的一个或多个数据的哈希值：
+ *         如果 key1的哈希值与已经存在的数据的哈希值都不相同，此时 key1-value1添加成功。 --> 情况 2
+ *         如果 key1的哈希值和已存在的某数据（ key2-value2）的哈希值相同：调用 key1所在类的 equals(key2)方法，比较：
+ *             如果 equals()返回 false：此时 key1-value1添加成功。 --> 情况 3
+ *             如果 equals()返回 true：使用 value1替换 value2，即 put()方法具有修改功能。
  *
- *      补充：
- *      1. 数据存储方式：
- *          关于情况 2和情况 3：此时 key1-value1和原来的数据以链表的方式存储。
- *      2. 扩容问题：
- *          在元素添加的过程中，会涉及到扩容问题，当超出临界值 threshold（且要存放的位置非空）时，进行扩容。
- *          默认的扩容方式：扩容为原来容量的 2倍，并将原数据复制过来。
+ *     补充：
+ *     1. 数据存储方式：
+ *         关于情况 2和情况 3：此时 key1-value1和原来的数据以链表的方式存储。
+ *     2. 扩容问题：
+ *         在元素添加的过程中，会涉及到扩容问题，当超出临界值 threshold（且要存放的位置非空）时，进行扩容。
+ *         默认的扩容方式：扩容为原来容量的 2倍，并将原数据复制过来。
  *
- *      JDK 8 相较于 JDK 7在底层实现方面的不同：
- *      1. new HashMap()：底层没有创建一个长度为 16的数组
- *      2. JDK 8底层的数组是：Node[]，而非 Entry[]
- *      3. 首次调用 put()方法时，底层创建长度为 16的数组
- *      4. JDK 7底层结构只有：数组 + 链表。JDK 8中底层结构：数组 + 链表 + 红黑树。
- *         4.1 形成链表时，七上八下（JDK 7：新的元素指向旧的元素；JDK 8：旧的元素指向新的元素）
- *         4.2 当数组的某一个索引位置上的元素以链表形式存在的数据个数 > 8 且当前数组的长度 > 64时，
+ *     JDK 8 相较于 JDK 7在底层实现方面的不同：
+ *     1. new HashMap()：底层没有创建一个长度为 16的数组
+ *     2. JDK 8底层的数组是：Node[]，而非 Entry[]
+ *     3. 首次调用 put()方法时，底层创建长度为 16的数组
+ *     4. JDK 7底层结构只有：数组 + 链表。JDK 8中底层结构：数组 + 链表 + 红黑树。
+ *        4.1 形成链表时，七上八下（JDK 7：新的元素指向旧的元素；JDK 8：旧的元素指向新的元素）
+ *        4.2 当数组的某一个索引位置上的元素以链表形式存在的数据个数 > 8 且当前数组的长度 > 64时，
  *             此时此索引位置上的所数据改为使用红黑树存储。
  *
  *      DEFAULT_INITIAL_CAPACITY：HashMap的默认容量，16
@@ -86,16 +86,16 @@ import java.util.*;
  *         void clear()：清空当前 map中的所有数据
  *
  *     元素查询的操作：
- *         Object get(Object key)：获取指定key对应的 value
+ *         Object get(Object key)：获取指定 key对应的 value
  *         boolean containsKey(Object key)：是否包含指定的 key
  *         boolean containsValue(Object value)：是否包含指定的 value
- *         int size()：返回map中 key-value对的个数
+ *         int size()：返回 map中 key-value对的个数
  *         boolean isEmpty()：判断当前 map是否为空
  *         boolean equals(Object obj)：判断当前 map和参数对象 obj是否相等
  *
  *     元视图操作的方法：
  *         Set keySet()：返回所有 key构成的 Set集合
- *         Collection values()：返回所有value构成的 Collection集合
+ *         Collection values()：返回所有 value构成的 Collection集合
  *         Set entrySet()：返回所有 key-value对构成的 Set集合
  *
  * 常用方法总结：
@@ -177,7 +177,7 @@ public class MapTest {
      * Object get(Object key)：获取指定 key对应的 value
      * boolean containsKey(Object key)：是否包含指定的 key
      * boolean containsValue(Object value)：是否包含指定的 value
-     * int size()：返回map中 key-value对的数量
+     * int size()：返回 map中 key-value对的数量
      * boolean isEmpty()：判断当前 map是否为空
      * boolean equals(Object obj)：判断当前 map和参数对象 obj是否相等
      */
@@ -225,7 +225,7 @@ public class MapTest {
         map.put("BB", 456);
         map.put("CC", 789);
 
-        // 遍历key集：Set keySet()
+        // 遍历 key集：Set keySet()
         Set set = map.keySet();
         System.out.println(set.getClass());
 
@@ -236,7 +236,7 @@ public class MapTest {
 
         System.out.println("*********************");
 
-        // 遍历value集：Collection values()
+        // 遍历 value集：Collection values()
         Collection values = map.values();
         System.out.println(values.getClass());
 
@@ -246,7 +246,7 @@ public class MapTest {
 
         System.out.println("*********************");
 
-        // 遍历key-value集：Set entrySet()
+        // 遍历 key-value集：Set entrySet()
         Set entrySet = map.entrySet();
         System.out.println(entrySet.getClass());
 
