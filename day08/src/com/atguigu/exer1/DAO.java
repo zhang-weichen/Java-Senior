@@ -1,9 +1,6 @@
 package com.atguigu.exer1;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 定义个泛型类 DAO<T>，在其中定义一个 Map成员变量，Map的键为 String类型，值为 T类型。
@@ -19,7 +16,7 @@ import java.util.Map;
  * @create 2022-07-11 17:02
  */
 public class DAO<T> {
-    private Map<String, T> map;
+    private Map<String, T> map = new HashMap<>();
 
     // 保存T类型的对象到Map成员变量中
     public void save(String id, T entity) {
@@ -40,7 +37,7 @@ public class DAO<T> {
 
     // 返回map中存放的所有T对象
     public List<T> list() {
-        // 错误的：
+        // 错误的：强制类型转换是原类型进行了类型提升后还原回原类型的操作
 //        return (List<T>) map.values();
 
         Collection<T> values = map.values();
