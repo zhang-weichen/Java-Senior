@@ -16,14 +16,14 @@ public class ClassLoaderTest {
 
         // 对于自定义类，使用系统类加载器进行加载
         ClassLoader classLoader = ClassLoaderTest.class.getClassLoader();
-        System.out.println(classLoader);
+        System.out.println(classLoader);  // AppClassLoader
 
         // 调用系统类加载器的getparent()方法：获取扩展类加载器
         ClassLoader classLoader1 = classLoader.getParent();
-        System.out.println(classLoader);
+        System.out.println(classLoader1);  // ExtClassLoader
 
         // 调用扩展类加载器的getparent()方法：无法获取引导类加载器
-        // 引导类加载器主要负责加载java的核心类库，无法加载自定义类
+        // 引导类加载器主要负责加载Java的核心类库，无法加载自定义类
         ClassLoader classLoader2 = classLoader1.getParent();
         System.out.println(classLoader2);  // null
 
@@ -31,8 +31,8 @@ public class ClassLoaderTest {
         System.out.println(classLoader3);  // null
     }
 
-    /*
-    Properties：读取配置文件
+    /**
+     * Properties：读取配置文件
      */
     @Test
     public void test2() throws Exception {

@@ -12,23 +12,26 @@ import java.util.Random;
  */
 
 public class NewInstanceTest {
-    
+
+    /**
+     * newInstance()：调用此方法，创建对应运行时类的对象。内部调用了运行时类的空参构造器
+     *
+     * 使此方法正常创建运行时类的对象，要求：
+     * 1. 运行时类必须提供空参的构造器
+     * 2. 空参的构造器的访问权限足够。通常设置为 public
+     *
+     * 在 javabean中要求提供一个 public的空参构造器。原因：
+     * 1. 便于通过反射，创建运行时类的对象
+     * 2. 便于继承此类的子类实例化时，可以正常使用 super()调用父类构造器
+     *
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     @Test
     public void test1() throws InstantiationException, IllegalAccessException {
         
         Class<Person> cls = Person.class;
 
-        /*
-        newInstance()：调用此方法，创建对应运行时类的对象。内部调用了运行时类的空参构造器
-
-        使此方法正常创建运行时类的对象，要求：
-        1. 运行时类必须提供空参的构造器
-        2. 空参的构造器的访问权限足够。通常设置为public
-
-        在javabean中要求提供一个public的空参构造器。原因：
-        1. 便于通过反射，创建运行时类的对象
-        2. 便于继承此类的子类实例化时，可以正常使用super()调用父类构造器
-         */
         Object obj = cls.newInstance();
         System.out.println(obj);
     }
@@ -37,7 +40,7 @@ public class NewInstanceTest {
     @Test
     public void test2() {
 
-        int num = new Random().nextInt(3);  // 0,1,2
+        int num = new Random().nextInt(3);  // 0, 1, 2
         String classPath = "";
         switch (num){
             case 0:
@@ -60,9 +63,9 @@ public class NewInstanceTest {
 
     }
 
-    /*
-    创建一个指定类的对象。
-    classPath：指定类的全类名
+    /**
+     * 创建一个指定类的对象。
+     * classPath：指定类的全类名
      */
     public Object getInstance(String classPath) throws Exception {
         Class cls = Class.forName(classPath);

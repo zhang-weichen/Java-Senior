@@ -44,7 +44,7 @@ public class Person {
     }
 
     public void show() {
-        System.out.println("a person");
+        System.out.println("Person show()");
     }
 
     private String showNation(String nation) {
