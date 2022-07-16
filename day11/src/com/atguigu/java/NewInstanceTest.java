@@ -32,35 +32,39 @@ public class NewInstanceTest {
         
         Class<Person> cls = Person.class;
 
-        Object obj = cls.newInstance();
-        System.out.println(obj);
+        // 对象仍是通过构造器生成
+        Person p = cls.newInstance();
+        System.out.println(p);
     }
 
-    // 反射的动态性
+    /**
+     * 反射的动态性
+     */
     @Test
     public void test2() {
 
-        int num = new Random().nextInt(3);  // 0, 1, 2
-        String classPath = "";
-        switch (num){
-            case 0:
-                classPath = "java.util.Date";
-                break;
-            case 1:
-                classPath = "java.sql.Date";
-                break;
-            case 2:
-                classPath = "com.atguigu.java.Person";
-                break;
-        }
+        for (int i = 0; i < 10; i++) {
+            int num = new Random().nextInt(3);  // 0, 1, 2
+            String classPath = "";
+            switch (num){
+                case 0:
+                    classPath = "java.util.Date";
+                    break;
+                case 1:
+                    classPath = "java.lang.Object";
+                    break;
+                case 2:
+                    classPath = "com.atguigu.java.Person";
+                    break;
+            }
 
-        try {
-            Object obj = getInstance(classPath);
-            System.out.println(obj);
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                Object obj = getInstance(classPath);
+                System.out.println(obj);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
     /**

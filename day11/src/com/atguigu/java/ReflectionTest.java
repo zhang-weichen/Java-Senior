@@ -37,7 +37,7 @@ import java.lang.reflect.Method;
 public class ReflectionTest {
 
     /**
-     * 反射之前，对于Person类的操作
+     * 反射之前，对于 Person类的操作
      *
      * 在 Person类的外部，不可通过 Person类的对象调用其私有结构。
      *  如：name、showNation()以及私有的构造器

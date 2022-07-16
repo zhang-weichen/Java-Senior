@@ -3,6 +3,7 @@ package com.atguigu.java3;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
  * 2. File类声明在 java.io包下
  * 3. File类中涉及到关于文件或文件目录的创建、删除、重命名、修改时间、文件大小等方法，
  *    并未涉及到写入或读取文件内容的操作。如果需要读取或写入文件内容，必须使用 IO流来完成。
- * 4. 后续 File类的对象常会作为参数传递到流的构造器中，指明读取或写入的"终点".
+ * 4. 后续 File类的对象常会作为参数传递到流的构造器中，指明读取或写入的“终点”。
  *
  * @author zhangweichen
  * @create 2022-07-11 23:54
@@ -103,7 +104,6 @@ public class FileTest {
         }
     }
 
-
     /**
      *  public boolean renameTo(File dest)：把文件重命名为指定的文件路径
      *  比如：file1.renameTo(file2)为例：
@@ -117,5 +117,70 @@ public class FileTest {
 
         boolean renameTo = file1.renameTo(file2);
         System.out.println(renameTo);
+    }
+
+    /**
+     * public boolean isDirectory()：判断是否是文件目录
+     * public boolean isFile()：判断是否是文件
+     * public boolean exists()：判断是否存在
+     * public boolean canRead()：判断是否可读
+     * public boolean canWrite()：判断是否可写
+     * public boolean isHidden()：判断是否隐藏
+     */
+    @Test
+    public void test5() {
+
+        File file1 = new File("hello.txt");
+
+        System.out.println(file1.isDirectory());
+        System.out.println(file1.isFile());
+        System.out.println(file1.exists());  // 判断是否真实存在于硬盘
+        System.out.println(file1.canRead());
+        System.out.println(file1.canWrite());
+        System.out.println(file1.isHidden());
+
+        System.out.println();
+
+        File file2 = new File("E:\\IO");
+        file2 = new File("D:\\IO");
+        System.out.println(file2.isDirectory());
+        System.out.println(file2.isFile());
+        System.out.println(file2.exists());
+        System.out.println(file2.canRead());
+        System.out.println(file2.canWrite());
+        System.out.println(file2.isHidden());
+    }
+
+    /**
+     * 创建硬盘中对应的文件或文件目录
+     *  public boolean createNewFile()：创建文件。若文件存在，则不创建，返回 false
+     *  public boolean mkdir()：创建文件目录。如果此文件目录存在，不创建。如果此文件目录的上层目录不存在，也不创建。
+     *  public boolean mkdirs()：创建文件目录。如果此文件目录存在，不创建。如果上层文件目录不存在，一并创建
+     *
+     * 删除磁盘中的文件或文件目录
+     *  public boolean delete()：删除文件或者文件夹
+     * 删除注意事项：Java中的删除不走回收站。
+     */
+    @Test
+    public void test6() throws IOException {
+
+        // 文件的创建
+        File file = new File("hi.txt");
+        if (!file.exists()) {
+            file.createNewFile();
+            System.out.println("创建成功");
+        } else {
+            file.delete();
+            System.out.println("删除成功");
+        }
+
+        // 文件目录的创建
+        File file1 = new File("D:\\IO\\IO1\\IO2");
+        boolean mkdir = file1.mkdir();
+        System.out.println(mkdir);
+
+        File file2 = new File("D:\\IO\\IO1\\IO3");
+        boolean mkdirs = file2.mkdirs();
+        System.out.println(mkdirs);
     }
 }

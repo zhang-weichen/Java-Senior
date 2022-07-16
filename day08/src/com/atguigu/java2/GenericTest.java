@@ -18,7 +18,6 @@ public class GenericTest {
      * 泛型在继承方面的体现
      *
      * 类 A是类 B的父类，但是 G<A>和 G<B>二者不具备子父类关系，二者是并列关系。
-     *
      */
     @Test
     public void test1() {
@@ -96,7 +95,6 @@ public class GenericTest {
 //        print(list1);
 //        print(list2);
 
-
         List<String> list3 = new ArrayList<>();
         list3.add("AA");
         list3.add("BB");
@@ -142,7 +140,6 @@ public class GenericTest {
         list1 = list4;
 //        list1 = list5;
 
-
 //        list2 = list3;
         list2 = list4;
         list2 = list5;
@@ -159,7 +156,7 @@ public class GenericTest {
 //        Person p2 = list2.get(0);
 
         // 写入数据：
-        // <? extend Person>不允许写入非null以外的数据，因为有可能写入非Student及其子类的对象
+        // <? extend Person>不允许写入非null以外的数据，因为有可能写入非?及其子类的对象
 //        list1.add(new Student());
         list1.add(null);
 
